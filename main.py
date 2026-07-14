@@ -21,7 +21,14 @@ import os
 import sys
 import time
 
-# บังคับ console เป็น UTF-8 กัน UnicodeEncodeError ตอน print ภาษาไทย
+# โหมด windowed (.exe ไม่มี console): sys.stdout/stderr เป็น None -> print() จะ error
+# จึง redirect ไป devnull ให้ print ทุกที่ในโปรแกรมปลอดภัย (ไม่ต้องแก้ทีละจุด)
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w", encoding="utf-8")
+if sys.stderr is None:
+    sys.stderr = open(os.devnull, "w", encoding="utf-8")
+
+# บังคับ console เป็น UTF-8 กัน UnicodeEncodeError ตอน print ภาษาไทย (ตอนมี console)
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
@@ -42,6 +49,16 @@ from editor import ZoneEditor
 from paths import resource_path, appdata_dir
 
 ICON_PATH = resource_path("icon.ico")
+
+
+def msgbox(text: str, title: str = "ML Hand Controller", icon: int = 0x40) -> None:
+    """โชว์กล่องข้อความ (สำหรับโหมด windowed ที่ไม่มี console) — 0x10=error, 0x40=info"""
+    print(text)
+    try:
+        import ctypes
+        ctypes.windll.user32.MessageBoxW(0, str(text), title, icon)
+    except Exception:
+        pass
 
 
 def set_window_icon(title: str) -> bool:
@@ -145,9 +162,11 @@ def main():
 
     cap = open_camera(cfg)
     if cap is None or not cap.is_opened():
-        print(f"[main] เปิดกล้อง index {cfg.camera.index} ไม่ได้ — "
-              f"ลองเปลี่ยน camera.index ใน config.json หรือใช้ --camera 1\n"
-              f"       (ปิดโปรแกรมอื่นที่ใช้กล้องอยู่ เช่น OBS/Zoom/เบราว์เซอร์)")
+        msgbox(f"เปิดกล้อง index {cfg.camera.index} ไม่ได้\n\n"
+               f"- ปิดโปรแกรมอื่นที่ใช้กล้องอยู่ (OBS/Zoom/เบราว์เซอร์)\n"
+               f"- ลองเปลี่ยน camera.index ใน config.json\n"
+               f"  ({os.path.join(appdata_dir(), 'config.json')})",
+               "ML Hand Controller - เปิดกล้องไม่ได้", 0x10)
         return
 
     aw, ah = cap.size
@@ -321,4 +340,19 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # โหมด windowed ไม่มี console: ถ้า crash จะปิดเงียบ ๆ -> ดักไว้โชว์ popup + เขียน log
+    try:
+        main()
+    except Exception:
+        import traceback
+        tb = traceback.format_exc()
+        log_path = "(เขียน log ไม่ได้)"
+        try:
+            log_path = os.path.join(appdata_dir(), "error.log")
+            with open(log_path, "w", encoding="utf-8") as f:
+                f.write(tb)
+        except Exception:
+            pass
+        msgbox(f"โปรแกรมมีข้อผิดพลาดและต้องปิด\n\n{tb}\n\nบันทึก log ที่:\n{log_path}",
+               "ML Hand Controller - Error", 0x10)
+        raise

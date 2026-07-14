@@ -10,7 +10,7 @@ py -m PyInstaller main.py ^
   --name "ML Hand Controller" ^
   --icon icon.ico ^
   --noconfirm ^
-  --console ^
+  --windowed ^
   --onefile ^
   --collect-all mediapipe ^
   --collect-data cv2 ^
