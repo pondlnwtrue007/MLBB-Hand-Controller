@@ -12,6 +12,7 @@ py -m PyInstaller main.py ^
   --noconfirm ^
   --windowed ^
   --onefile ^
+  --uac-admin ^
   --collect-all mediapipe ^
   --collect-data cv2 ^
   --hidden-import win32gui ^
