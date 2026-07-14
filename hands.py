@@ -128,8 +128,13 @@ class HandDetector:
 
     def __init__(self, model_path: str = MODEL_FILENAME):
         model_path = _ensure_model(model_path)
+        # อ่านโมเดลเป็น bytes ใน Python แล้วส่งเป็น buffer (ไม่ส่ง path)
+        # เพราะ MediaPipe (C++) เปิดไฟล์ที่ path มีอักขระ Unicode ไม่ได้
+        # (เช่นขีด — ในชื่อโฟลเดอร์) แต่ open() ของ Python เปิดได้ปกติ
+        with open(model_path, "rb") as f:
+            model_buffer = f.read()
         options = mp_vision.HandLandmarkerOptions(
-            base_options=mp_python.BaseOptions(model_asset_path=model_path),
+            base_options=mp_python.BaseOptions(model_asset_buffer=model_buffer),
             running_mode=mp_vision.RunningMode.VIDEO,
             num_hands=2,
             min_hand_detection_confidence=0.5,

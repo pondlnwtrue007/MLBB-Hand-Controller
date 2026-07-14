@@ -104,6 +104,29 @@ def open_camera(cfg):
     return cam
 
 
+def resolve_config_path(path_arg: str) -> str:
+    """
+    หา config.json ที่ "เขียนได้" ข้าง ๆ ตัวโปรแกรม (exe หรือสคริปต์)
+    ถ้ายังไม่มี ให้ก็อปค่า default ที่ฝังมา (resource_path) ออกมาให้ 1 ชุด
+    -> ผู้ใช้แก้ไข/กด S เซฟจาก editor ได้จริง (ไม่ไปเขียนใน _internal ของ exe)
+    """
+    if path_arg != "config.json":
+        return path_arg   # ผู้ใช้ระบุ path เอง ใช้ตามนั้น
+    if getattr(sys, "frozen", False):
+        base = os.path.dirname(sys.executable)          # โฟลเดอร์ที่มี .exe
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+    target = os.path.join(base, "config.json")
+    if not os.path.exists(target):
+        try:
+            import shutil
+            shutil.copy(resource_path("config.json"), target)
+            print(f"[config] สร้าง config.json ที่ {target}")
+        except Exception as e:
+            print(f"[config] ก็อป config.json ไม่ได้ ({e}) — ใช้ค่า default")
+    return target
+
+
 def main():
     ap = argparse.ArgumentParser(description="Mobile Legends hand controller")
     ap.add_argument("--test", action="store_true",
@@ -112,7 +135,7 @@ def main():
     ap.add_argument("--camera", type=int, default=None, help="override camera index")
     args = ap.parse_args()
 
-    cfg = Config.load(args.config)
+    cfg = Config.load(resolve_config_path(args.config))
     if args.camera is not None:
         cfg.camera.index = args.camera
 
