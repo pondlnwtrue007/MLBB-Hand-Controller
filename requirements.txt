@@ -1,0 +1,7 @@
+# Mobile Legends — Hand Controller
+# Python 3.10–3.12 (แนะนำ 3.12). ติดตั้ง: pip install -r requirements.txt
+mediapipe>=0.10.14
+opencv-python>=4.9
+numpy>=1.26,<2.0
+pywin32>=306
+pygrabber>=0.2      ; python_version < "3.13"

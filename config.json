@@ -1,0 +1,127 @@
+{
+  "camera": {
+    "index": 0,
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "backend": "DSHOW",
+    "mjpg": true,
+    "mirror": true
+  },
+  "detect_width": 480,
+  "smoothing": 0.5,
+  "target_window": "Android Device",
+  "hand_assignment": "position",
+  "swap_hands": false,
+  "always_on_top": true,
+  "calibrate_countdown": 4.0,
+  "prep_countdown": 8.0,
+  "move": {
+    "directions": 4,
+    "deadzone": 0.1,
+    "deadzone_out": 0.07,
+    "origin": [
+      0.25,
+      0.55
+    ],
+    "keys": {
+      "up": "w",
+      "down": "s",
+      "left": "a",
+      "right": "d"
+    }
+  },
+  "gesture": {
+    "fire_gesture": "pinch",
+    "fist_max_open": 1,
+    "open_min": 3,
+    "pinch_on": 0.55,
+    "pinch_off": 0.78
+  },
+  "output": {
+    "tap_ms": 55,
+    "repeat_interval": 0.15
+  },
+  "zones": [
+    {
+      "name": "attack",
+      "key": "h",
+      "cx": 0.8442187499999999,
+      "cy": 0.5236111111111111,
+      "r": 0.09,
+      "repeat": true
+    },
+    {
+      "name": "skill1",
+      "key": "q",
+      "cx": 0.578125,
+      "cy": 0.8300000000000001,
+      "r": 0.075,
+      "repeat": false
+    },
+    {
+      "name": "skill2",
+      "key": "e",
+      "cx": 0.7565624999999999,
+      "cy": 0.8391666666666667,
+      "r": 0.075,
+      "repeat": false
+    },
+    {
+      "name": "skill3",
+      "key": "r",
+      "cx": 0.93984375,
+      "cy": 0.8361111111111111,
+      "r": 0.075,
+      "repeat": false
+    },
+    {
+      "name": "spell",
+      "key": "f",
+      "cx": 0.6370312499999999,
+      "cy": 0.5041666666666668,
+      "r": 0.065,
+      "repeat": false
+    },
+    {
+      "name": "recall",
+      "key": "b",
+      "cx": 0.9368749999999999,
+      "cy": 0.17916666666666667,
+      "r": 0.055,
+      "repeat": false
+    },
+    {
+      "name": "regen",
+      "key": "g",
+      "cx": 0.78984375,
+      "cy": 0.18138888888888888,
+      "r": 0.055,
+      "repeat": false
+    },
+    {
+      "name": "up1",
+      "key": "1",
+      "cx": 0.3885937499999999,
+      "cy": 0.14944444444444446,
+      "r": 0.05,
+      "repeat": false
+    },
+    {
+      "name": "up2",
+      "key": "2",
+      "cx": 0.49656250000000013,
+      "cy": 0.15444444444444444,
+      "r": 0.05,
+      "repeat": false
+    },
+    {
+      "name": "up3",
+      "key": "3",
+      "cx": 0.64515625,
+      "cy": 0.16611111111111113,
+      "r": 0.05,
+      "repeat": false
+    }
+  ]
+}
