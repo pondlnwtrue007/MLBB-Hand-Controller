@@ -18,9 +18,10 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest">
+  <a href="https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest/download/ML.Hand.Controller.exe">
     <img alt="download" src="https://img.shields.io/badge/⬇%20Download-Windows%20.exe-brightgreen?style=for-the-badge">
   </a>
+  <br><sub>กดปุ่มเขียว = โหลด .exe ทันที</sub>
 </p>
 
 <p align="center">
@@ -38,7 +39,7 @@
 
 ## 🚀 เริ่มใช้ใน 4 ขั้น (แบบ .exe — ไม่ต้องลง Python)
 
-1. **โหลด** [`ML Hand Controller.exe`](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest) → **คลิกขวา → Run as administrator**
+1. **โหลด** [`ML Hand Controller.exe`](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest/download/ML.Hand.Controller.exe) → **คลิกขวา → Run as administrator**
    *(จำเป็น! ไม่งั้นปุ่มไม่เข้า MuMu • เปิดครั้งแรกช้า ~5–10 วิ • SmartScreen เตือน → More info → Run anyway)*
 2. **ตั้ง keymapping ใน MuMu** ให้ปุ่มตรง (joystick→WASD, สกิล→H/Q/E/R/F/B/G, อัพสกิล→1/2/3) + เปิด **Quick Cast** ในเกม *(ดูละเอียดข้อ 2 ด้านล่าง)*
 3. **ยกมือซ้าย**ไว้ตรงที่ถนัด กด **`C`** ตั้งจุดกลางจอย → กด **`E`** ลากวางปุ่มให้เข้ามือ แล้ว **`S`** เซฟ
