@@ -39,7 +39,7 @@ from overlay import OverlayRenderer
 from editor import ZoneEditor
 
 
-from paths import resource_path
+from paths import resource_path, appdata_dir
 
 ICON_PATH = resource_path("icon.ico")
 
@@ -106,14 +106,16 @@ def open_camera(cfg):
 
 def resolve_config_path(path_arg: str) -> str:
     """
-    หา config.json ที่ "เขียนได้" ข้าง ๆ ตัวโปรแกรม (exe หรือสคริปต์)
-    ถ้ายังไม่มี ให้ก็อปค่า default ที่ฝังมา (resource_path) ออกมาให้ 1 ชุด
-    -> ผู้ใช้แก้ไข/กด S เซฟจาก editor ได้จริง (ไม่ไปเขียนใน _internal ของ exe)
+    หา config.json ที่ "เขียนได้" — ผู้ใช้แก้ไข/กด S เซฟจาก editor ได้จริง
+    - ตอนเป็น .exe (one-file): เก็บใน %LOCALAPPDATA%\\MLHandController
+      เพื่อให้โฟลเดอร์โปรแกรมเหลือแค่ไฟล์ .exe เดียว
+    - ตอนรันจากซอร์ส: ใช้ config.json ข้าง ๆ สคริปต์
+    ถ้ายังไม่มี ก็อปค่า default ที่ฝังมา (resource_path) ออกมาให้ 1 ชุด
     """
     if path_arg != "config.json":
         return path_arg   # ผู้ใช้ระบุ path เอง ใช้ตามนั้น
     if getattr(sys, "frozen", False):
-        base = os.path.dirname(sys.executable)          # โฟลเดอร์ที่มี .exe
+        base = appdata_dir()                            # %LOCALAPPDATA%\MLHandController
     else:
         base = os.path.dirname(os.path.abspath(__file__))
     target = os.path.join(base, "config.json")
@@ -124,6 +126,8 @@ def resolve_config_path(path_arg: str) -> str:
             print(f"[config] สร้าง config.json ที่ {target}")
         except Exception as e:
             print(f"[config] ก็อป config.json ไม่ได้ ({e}) — ใช้ค่า default")
+    if getattr(sys, "frozen", False):
+        print(f"[config] แก้ค่าได้ที่: {target}")
     return target
 
 

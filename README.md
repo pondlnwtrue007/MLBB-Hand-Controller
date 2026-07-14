@@ -12,8 +12,12 @@
 
 ## ⬇️ ดาวน์โหลด (พร้อมใช้ — ไม่ต้องลง Python)
 
-โหลดไฟล์ `.exe` ล่าสุดที่ 👉 **[Releases](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest)**
-แตก zip แล้ว **คลิกขวา `ML Hand Controller.exe` → Run as administrator** (จำเป็น ไม่งั้นปุ่มไม่เข้า MuMu)
+โหลด **`ML Hand Controller.exe`** (ไฟล์เดียวจบ) ที่ 👉 **[Releases](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest)**
+แล้ว **คลิกขวา → Run as administrator** (จำเป็น ไม่งั้นปุ่มไม่เข้า MuMu)
+
+- เปิด**ครั้งแรกช้าหน่อย ~5–10 วิ** (แตกไฟล์ในตัว) ครั้งต่อไปไวขึ้น
+- ถ้า Windows SmartScreen เตือน → กด **More info → Run anyway** (เป็น .exe ที่ไม่ได้เซ็นใบรับรอง ปกติของโปรแกรมฟรี)
+- ค่าตั้ง `config.json` จะถูกสร้างที่ `%LOCALAPPDATA%\MLHandController\` (แก้เอง หรือใช้โหมด `E` จัดวางปุ่มแล้ว `S` เซฟ)
 
 > อยากรันจากซอร์ส/แก้โค้ดเอง → ดูข้อ 1 ด้านล่าง
 
