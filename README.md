@@ -13,6 +13,7 @@
   <img alt="python" src="https://img.shields.io/badge/python-3.10--3.12-3776AB?style=flat-square&logo=python&logoColor=white">
   <img alt="mediapipe" src="https://img.shields.io/badge/MediaPipe-Hands-00A67E?style=flat-square">
   <img alt="release" src="https://img.shields.io/github/v/release/pondlnwtrue007/MLBB-Hand-Controller?style=flat-square&color=success">
+  <img alt="downloads" src="https://img.shields.io/github/downloads/pondlnwtrue007/MLBB-Hand-Controller/total?style=flat-square&label=downloads&color=blue">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
 </p>
 
