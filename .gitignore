@@ -17,3 +17,6 @@ hand_landmarker.task
 *.log
 Thumbs.db
 desktop.ini
+
+# release zip (อยู่บน GitHub Releases แล้ว)
+*.zip
