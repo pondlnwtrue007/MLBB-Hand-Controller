@@ -178,7 +178,7 @@ class OverlayRenderer:
         self._key_box(frame, cx + gap + b // 2, row2, b, "D", "d" in held, s)
 
     # -- แถบสถานะ -----------------------------------------------------------
-    def _draw_status(self, frame, state, fps, test_mode, focused, s):
+    def _draw_status(self, frame, state, fps, test_mode, focused, s, target_window=""):
         h, w = frame.shape[:2]
         m = int(14 * s)
         fs = 0.6 * s
@@ -190,7 +190,7 @@ class OverlayRenderer:
         if test_mode:
             tag, col = "TEST MODE (not sending)", YELLOW
         elif focused:
-            tag, col = "MuMu FOCUSED", GREEN
+            tag, col = "GAME FOCUSED", GREEN
         else:
             tag, col = "NOT FOCUSED", RED
         _text(frame, tag, (w - _text_w(tag, fs, th) - m, y1), fs, col, th)
@@ -201,8 +201,14 @@ class OverlayRenderer:
         hands_tag.append("R:skill" if state.skill_present else "R:-")
         _text(frame, "  ".join(hands_tag), (m, y2), 0.5 * s, WHITE, max(1, int(s)))
 
-        _text(frame, "C set-center  E edit-buttons  P on-top  V shot  T test  R reload  Q quit",
-              (m, h - int(12 * s)), 0.46 * s, WHITE, max(1, int(s)))
+        # หน้าต่างเกมเป้าหมาย + วิธีเปลี่ยน (สำคัญกับคนอื่นที่ใช้อีมูฯ ต่างชื่อ)
+        tw_label = target_window if target_window else "ANY (no check)"
+        tw_col = GREEN if (test_mode or focused) else YELLOW
+        _text(frame, f"target: [{tw_label}]   press M to select game window",
+              (m, y2 + line_h), 0.46 * s, tw_col, max(1, int(s)))
+
+        _text(frame, "C center  M window  E edit  P on-top  V shot  T test  R reload  Q quit",
+              (m, h - int(12 * s)), 0.44 * s, WHITE, max(1, int(s)))
 
     # -- นับถอยหลังกลางจอ ---------------------------------------------------
     def _draw_countdown(self, frame, remaining, title, sub, s):
@@ -247,7 +253,7 @@ class OverlayRenderer:
 
     # -- render หลัก --------------------------------------------------------
     def render(self, frame, state, taps, now, fps,
-               test_mode, focused, countdown=None, editor=None):
+               test_mode, focused, countdown=None, editor=None, target_window=""):
         s = frame.shape[1] / 640.0
         self.note_taps(taps, now)
 
@@ -258,7 +264,7 @@ class OverlayRenderer:
         self._draw_hand(frame, state.skiller_hand, s, ORANGE)
         self._draw_curl_meter(frame, state, s)
         self._draw_key_hud(frame, state, s)
-        self._draw_status(frame, state, fps, test_mode, focused, s)
+        self._draw_status(frame, state, fps, test_mode, focused, s, target_window)
         if editor is not None and editor.active:
             self._draw_editor(frame, editor, s)
         if countdown is not None:

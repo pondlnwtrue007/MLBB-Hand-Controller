@@ -189,7 +189,7 @@ def main():
     print(" ตั้งจุดกลาง joystick: วางมือซ้ายตรงกลางที่ถนัด แล้วกด  C")
     print(" จัดวางปุ่มเอง: กด  E  แล้วลากวงด้วยเมาส์ -> กด S เซฟ")
     print(" TEST MODE:", "ON (ไม่ยิงปุ่มจริง)" if args.test else "OFF (ยิงเข้า MuMu)")
-    print(" ปุ่มลัด: C=ตั้งจุดกลาง  E=จัดวางปุ่ม  P=ลอยหน้าสุด  T=test  R=reload  Q/Esc=ออก")
+    print(" ปุ่มลัด: C=ตั้งจุดกลาง  M=เลือกหน้าต่างเกม  E=จัดวางปุ่ม  P=ลอยหน้าสุด  T=test  R=reload  Q=ออก")
     print("=" * 64)
 
     prev_held: set = set()
@@ -205,6 +205,8 @@ def main():
     topmost_applied = False
     icon_set = False
     shot_n = 0
+    targeting = False       # โหมดเลือกหน้าต่างเกม (กด M)
+    target_deadline = 0.0
 
     try:
         while True:
@@ -261,8 +263,29 @@ def main():
                     preparing = False
                     print("[main] เริ่มยิงปุ่มจริงแล้ว!")
                 else:
-                    countdown = (r, "GET READY - SWITCH TO MuMu",
-                                 "click the MuMu window & get in place")
+                    countdown = (r, "GET READY - SWITCH TO GAME",
+                                 "click the game window & get in place")
+                    held, taps = set(), []
+            elif targeting:
+                r = target_deadline - now
+                if r <= 0:
+                    targeting = False
+                    title = sender.foreground_title()
+                    if title and "Hand Controller" not in title:
+                        cfg.target_window = title
+                        try:
+                            editor.save()   # เขียน cfg (รวม target_window) ลง config.json
+                        except Exception as e:
+                            print(f"[main] เซฟ config ไม่ได้: {e}")
+                        msgbox(f"ตั้งหน้าต่างเกมเป็น:\n\n[{title}]\n\nเซฟแล้ว — เริ่มเล่นได้เลย",
+                               "ML Hand Controller - เลือกหน้าต่างแล้ว", 0x40)
+                    else:
+                        msgbox("ไม่ได้จับหน้าต่างเกม (ต้องคลิกหน้าต่างเกมระหว่างนับถอยหลัง)\n"
+                               "ลองกด M ใหม่ แล้วคลิกหน้าต่างเกม/อีมูเลเตอร์",
+                               "ML Hand Controller", 0x30)
+                else:
+                    countdown = (r, "SELECT GAME WINDOW",
+                                 "click your game / emulator window NOW")
                     held, taps = set(), []
 
             # กด/ปล่อยปุ่มเดินให้ตรงกับทิศ
@@ -279,7 +302,8 @@ def main():
                 print(f"[{status}] tap '{key}'")
 
             focused = (not args.test) and sender.is_target_focused()
-            overlay.render(frame, state, taps, now, fps, args.test, focused, countdown, editor)
+            overlay.render(frame, state, taps, now, fps, args.test, focused, countdown,
+                           editor, cfg.target_window)
             cv2.imshow(win, frame)
             # ตั้งลอยหน้าสุด + ไอคอน ครั้งแรกหลังหน้าต่างโผล่ (ทำครั้งเดียว)
             if topmost and not topmost_applied:
@@ -305,6 +329,11 @@ def main():
                 preparing = False
                 calib_deadline = now + cfg.calibrate_countdown
                 print(f"[main] ตั้งจุดกลางใน {cfg.calibrate_countdown:.0f} วิ — วางมือซ้ายตรงกลาง")
+            elif key == ord("m"):
+                targeting = True
+                calibrating = preparing = False
+                target_deadline = now + 5.0
+                print("[main] เลือกหน้าต่างเกม: คลิกหน้าต่างเกม/อีมูเลเตอร์ภายใน 5 วิ")
             elif key == ord("t"):
                 args.test = not args.test
                 sender.release_all()
