@@ -1,25 +1,57 @@
-<p align="center"><img src="icon.png" width="130" alt="logo"></p>
-<h1 align="center">Mobile Legends — Hand Controller 🖐️🎮</h1>
+<p align="center">
+  <img src="icon.png" width="120" alt="logo">
+</p>
 
-คุม **Mobile Legends** (บน **MuMu Player**) ด้วย **2 มือผ่านเว็บแคม** แทนคีย์บอร์ด/จอย
+<h1 align="center">Mobile Legends — Hand Controller</h1>
 
-- **มือซ้าย** = virtual joystick เดิน — เลื่อนมือรอบ "วงกลาง" → กด **W/A/S/D** ตามทิศ (กดค้างต่อเนื่อง)
-- **มือขวา** = เลื่อนฝ่ามือเข้า **"วงปุ่ม"** แล้ว **จีบนิ้ว/กำหมัด** = ยิงปุ่มนั้น (สกิล/โจมตี/รีคอล/อัพสกิล)
+<p align="center">
+  🖐️🎮 คุม <b>Mobile Legends</b> (บน MuMu Player) ด้วย <b>2 มือผ่านเว็บแคม</b> แทนคีย์บอร์ด/จอย
+</p>
+
+<p align="center">
+  <img alt="platform" src="https://img.shields.io/badge/platform-Windows%2064--bit-0078D6?style=flat-square&logo=windows">
+  <img alt="python" src="https://img.shields.io/badge/python-3.10--3.12-3776AB?style=flat-square&logo=python&logoColor=white">
+  <img alt="mediapipe" src="https://img.shields.io/badge/MediaPipe-Hands-00A67E?style=flat-square">
+  <img alt="release" src="https://img.shields.io/github/v/release/pondlnwtrue007/MLBB-Hand-Controller?style=flat-square&color=success">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-green?style=flat-square">
+</p>
+
+<p align="center">
+  <a href="https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest">
+    <img alt="download" src="https://img.shields.io/badge/⬇%20Download-Windows%20.exe-brightgreen?style=for-the-badge">
+  </a>
+</p>
+
+<p align="center">
+  <b>มือซ้าย</b> = จอยเดิน W/A/S/D &nbsp;•&nbsp; <b>มือขวา</b> = เลื่อนเข้าวงปุ่ม + <b>จีบนิ้ว</b> = ยิงสกิล
+</p>
+
+<p align="center">
+  <img src="docs/screenshot.png" width="88%" alt="หน้าตาแอป">
+  <br><sub><i>หน้าตาโปรแกรม: joystick มือซ้าย (กำลังเดินขึ้น = W) • วงปุ่มมือขวา (วง attack กำลังยิง) • HUD + meter ท่ายิง</i></sub>
+</p>
 
 > ออกแบบให้ **เล่นได้จริง พอเอาตัวรอดในแมตช์** ไม่ใช่แค่โชว์ — เน้นลื่น + แม่น ปรับจูนหน้ากล้องได้ง่าย
 
 ---
 
-## ⬇️ ดาวน์โหลด (พร้อมใช้ — ไม่ต้องลง Python)
+## 🚀 เริ่มใช้ใน 4 ขั้น (แบบ .exe — ไม่ต้องลง Python)
 
-โหลด **`ML Hand Controller.exe`** (ไฟล์เดียวจบ) ที่ 👉 **[Releases](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest)**
-แล้ว **คลิกขวา → Run as administrator** (จำเป็น ไม่งั้นปุ่มไม่เข้า MuMu)
+1. **โหลด** [`ML Hand Controller.exe`](https://github.com/pondlnwtrue007/MLBB-Hand-Controller/releases/latest) → **คลิกขวา → Run as administrator**
+   *(จำเป็น! ไม่งั้นปุ่มไม่เข้า MuMu • เปิดครั้งแรกช้า ~5–10 วิ • SmartScreen เตือน → More info → Run anyway)*
+2. **ตั้ง keymapping ใน MuMu** ให้ปุ่มตรง (joystick→WASD, สกิล→H/Q/E/R/F/B/G, อัพสกิล→1/2/3) + เปิด **Quick Cast** ในเกม *(ดูละเอียดข้อ 2 ด้านล่าง)*
+3. **ยกมือซ้าย**ไว้ตรงที่ถนัด กด **`C`** ตั้งจุดกลางจอย → กด **`E`** ลากวางปุ่มให้เข้ามือ แล้ว **`S`** เซฟ
+4. กด **`T`** เข้าโหมดยิงจริง → คลิกหน้าต่าง MuMu ให้ขึ้นหน้า → **เล่นได้เลย!**
 
-- เปิด**ครั้งแรกช้าหน่อย ~5–10 วิ** (แตกไฟล์ในตัว) ครั้งต่อไปไวขึ้น
-- ถ้า Windows SmartScreen เตือน → กด **More info → Run anyway** (เป็น .exe ที่ไม่ได้เซ็นใบรับรอง ปกติของโปรแกรมฟรี)
-- ค่าตั้ง `config.json` จะถูกสร้างที่ `%LOCALAPPDATA%\MLHandController\` (แก้เอง หรือใช้โหมด `E` จัดวางปุ่มแล้ว `S` เซฟ)
+<p align="center"><b>การคุม:</b> เลื่อนมือซ้ายรอบวงกลาง = เดิน 4 ทิศ • เลื่อนมือขวาเข้าวงปุ่มแล้ว "จีบนิ้ว" = ยิงปุ่มนั้น</p>
 
-> อยากรันจากซอร์ส/แก้โค้ดเอง → ดูข้อ 1 ด้านล่าง
+| ปุ่มลัดในแอป | | | |
+|---|---|---|---|
+| `C` ตั้งจุดกลางจอย | `E` จัดวางปุ่ม (ลากเมาส์) | `P` preview ลอยหน้าสุด | `V` ถ่ายรูปหน้าจอ |
+| `T` สลับ test/ยิงจริง | `R` reload config | `Q`/`Esc` ออก | `S`/`[` `]` (ในโหมด E) เซฟ/ปรับขนาด |
+
+> ค่าตั้ง `config.json` อยู่ที่ `%LOCALAPPDATA%\MLHandController\` (แก้เอง หรือใช้โหมด `E` แล้ว `S` เซฟ)
+> • อยากรันจากซอร์ส/แก้โค้ดเอง → ดูข้อ 1 ด้านล่าง
 
 ---
 

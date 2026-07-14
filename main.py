@@ -204,6 +204,7 @@ def main():
     topmost = cfg.always_on_top
     topmost_applied = False
     icon_set = False
+    shot_n = 0
 
     try:
         while True:
@@ -322,6 +323,14 @@ def main():
                 set_topmost(win, topmost)
                 topmost_applied = True
                 print(f"[main] preview ลอยหน้าสุด: {'ON' if topmost else 'OFF'}")
+            elif key == ord("v"):
+                shot_n += 1
+                shot_path = os.path.join(appdata_dir(), f"screenshot_{shot_n}.png")
+                try:
+                    cv2.imwrite(shot_path, frame)
+                    print(f"[main] บันทึกภาพหน้าจอที่ {shot_path}")
+                except Exception as e:
+                    print(f"[main] บันทึกภาพไม่ได้: {e}")
             elif key == ord("r"):
                 cfg = cfg.reload()
                 sender.cfg = cfg

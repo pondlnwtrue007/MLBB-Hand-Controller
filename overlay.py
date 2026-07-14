@@ -201,8 +201,8 @@ class OverlayRenderer:
         hands_tag.append("R:skill" if state.skill_present else "R:-")
         _text(frame, "  ".join(hands_tag), (m, y2), 0.5 * s, WHITE, max(1, int(s)))
 
-        _text(frame, "C set-center  E edit-buttons  P on-top  T test  R reload  Q quit",
-              (m, h - int(12 * s)), 0.5 * s, WHITE, max(1, int(s)))
+        _text(frame, "C set-center  E edit-buttons  P on-top  V shot  T test  R reload  Q quit",
+              (m, h - int(12 * s)), 0.46 * s, WHITE, max(1, int(s)))
 
     # -- นับถอยหลังกลางจอ ---------------------------------------------------
     def _draw_countdown(self, frame, remaining, title, sub, s):
